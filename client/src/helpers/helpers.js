@@ -43,8 +43,10 @@ export const formatTime = (time) => {
  * @returns string Returns the date and time in the format DD/MM/YYYY, HH:mm
  */
 export const formatDateTime = (dateTime, options = DEFAULT_DATE_FORMAT_OPTIONS) => {
-    const currentLanguage = i18n.languages[0] || DEFAULT_LANGUAGE;
-    const parsedTime = dateParse(dateTime);
+    const { language } = navigator;
+    const currentLanguage = (language.slice(0, 2) === 'en' || !language) ? 'en-GB' : language;
+
+    const parsedTime = new Date(dateTime);
 
     return parsedTime.toLocaleString(currentLanguage, options);
 };
